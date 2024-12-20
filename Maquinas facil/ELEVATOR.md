@@ -1,5 +1,7 @@
 # Máquina Elevator
 
+![image](https://github.com/user-attachments/assets/affb22f8-7a17-4fed-8ef6-357c44d6fa80)
+
 ## Verificación de Conectividad
 
 Primero, verificamos la conectividad con la máquina utilizando **ping**:
