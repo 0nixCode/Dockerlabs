@@ -1,5 +1,7 @@
+# Maquina elevator
+---
 Primero verificamos si tenemos **ping** de la máquina de **Docker Labs**.
-![{226AE468-6785-4450-97C9-DD778D538B7E}](https://github.com/user-attachments/assets/d8f3d4d1-de15-4d8d-8e42-74a401fcc3e0)
+![image](https://github.com/user-attachments/assets/ccf1913f-1090-4440-b19c-99c02fa464ea)
 
 Iniciamos la fase de reconocimiento de los puertos de dicha máquina con **NMAP**.
 ```bash
