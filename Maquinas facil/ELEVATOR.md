@@ -120,6 +120,8 @@ En este caso, no podemos migrar como root, pero sí podemos migrar como el usuar
 
 Con **GTFOBins**, vamos a buscar el binario `env` y listar los comandos que el usuario puede ejecutar como **daphne**
 
+![image](https://github.com/user-attachments/assets/eaa5afdc-5d69-43ec-a33d-1172ecb8360c)
+
 ![image](https://github.com/user-attachments/assets/3f7edfb7-9e27-45c5-9f83-775e4e412702)
 
 Ya estando como el usuario **daphne**, procederemos a listar nuevamente los comandos disponibles para verificar si podemos migrar a otro usuario o escalar privilegios.
