@@ -98,9 +98,13 @@ nc -nlvp 443
 ```
 ![image](https://github.com/user-attachments/assets/c7b2bfde-9d5f-438a-8a1b-ff17d1c0eda6)
 
-¡Bummmmm! Estamos dentro de la máquina, pero como el usuario `www-data`. Vamos a verificar los permisos SUID para verificar si podemos elevar los privilegios por este método.
+¡Bummmmm! Estamos dentro de la máquina, pero como el usuario `www-data`. 
 
 ![image](https://github.com/user-attachments/assets/5649a008-e84e-479d-b29a-b1461df881b0)
+
+Vamos a verificar los permisos SUID para determinar si es posible elevar privilegios a través de este método. Sin embargo, lamentablemente no podremos aprovechar esta vía.
+
+![image](https://github.com/user-attachments/assets/af283685-a5ed-47ce-a493-be56dcc09527)
 
 Procederemos a realizar el tratamiento de la TTY para establecer una sesión interactiva más estable.
 
@@ -108,9 +112,6 @@ Procederemos a realizar el tratamiento de la TTY para establecer una sesión int
 
 ![image](https://github.com/user-attachments/assets/bfe361cb-be55-47f8-a52a-32f94666d19a)
 
-Lamentablemente no podemos tirar por esta lado.
-
-![image](https://github.com/user-attachments/assets/af283685-a5ed-47ce-a493-be56dcc09527)
 
 Vamos a listar los comandos que el usuario puede ejecutar con privilegios de `root` usando `sudo -l`.
 
