@@ -18,7 +18,7 @@ nmap -p- -sT -sV -A $IP -oN elevator
 
 Al parecer, solamente tenemos el puerto 80 habilitado. Vamos a proceder a analizar dicha web.
 
-Al parecer, es una simple web que, al presionar el botón **¡Abre el Ascensor!**, muestra una animación y un mensaje que aparece en la pantalla.
+Parece ser una simple web que, al presionar el botón **¡Abre el Ascensor!**, muestra una animación y un mensaje que aparece en la pantalla.
 
 ![image](https://github.com/user-attachments/assets/5a24029b-c718-4aef-bab5-07fef1ef97aa)
 ![image](https://github.com/user-attachments/assets/301493da-5523-4f1d-b624-edffdd161fc0)
