@@ -1,16 +1,20 @@
-#Maquina elevator
----
+# Máquina Elevator
+
+## Verificación de Conectividad
+
 Primero, verificamos la conectividad con la máquina utilizando **ping**:
 
 ![Ping a la máquina objetivo](https://github.com/user-attachments/assets/ccf1913f-1090-4440-b19c-99c02fa464ea)
 
-Iniciamos la fase de reconocimiento de los puertos de dicha máquina con **NMAP**.
+## Reconocimiento de Puertos con NMAP
+
+Iniciamos la fase de reconocimiento de los puertos de dicha máquina con **NMAP**:
 ```bash
 nmap -p- -sT -sV -A $IP -oN elevator
 ```
 ![image](https://github.com/user-attachments/assets/71cb52df-a563-4f30-b629-338de6f946b0)
 
-	Al parecer, solamente tenemos el puerto 80 habilitado. Vamos a proceder a analizar dicha web.
+Al parecer, solamente tenemos el puerto 80 habilitado. Vamos a proceder a analizar dicha web.
 
 Al parecer, es una simple web que, al presionar el botón **¡Abre el Ascensor!**, muestra una animación y un mensaje que aparece en la pantalla.
 
@@ -112,7 +116,7 @@ Vamos a listar los comandos que el usuario puede ejecutar con privilegios de `ro
 
 ![image](https://github.com/user-attachments/assets/867899f6-d535-4786-ab47-6233e3215063)
 
-	En este caso, no podemos migrar como root, pero sí podemos migrar como el usuario **daphne**, con el cual podemos usar el comando `env`.
+En este caso, no podemos migrar como root, pero sí podemos migrar como el usuario **daphne**, con el cual podemos usar el comando `env`.
 
 Con **GTFOBins**, vamos a buscar el binario `env` y listar los comandos que el usuario puede ejecutar como **daphne**
 
