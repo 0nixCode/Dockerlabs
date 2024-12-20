@@ -45,6 +45,7 @@ Vamos a proceder primero a crear un fichero con la extensión `.php`, por si la 
 ![image](https://github.com/user-attachments/assets/57d54f62-7969-4ec9-a289-9e174bace3c1)``
 
 Procedemos a subir el fichero a la web.
+
 ![image](https://github.com/user-attachments/assets/07a53adf-c045-479f-b990-8d25c1feaf38)
 
 Pero al subir nuestro fichero **PHP**, la web no lo permite; solo nos permite subir ficheros con extensión **JPG**.
