@@ -1,54 +1,76 @@
+# DockerLabas - BadPlugin
+
 Con la máquina **`BadPlugin`** ya levantada, probaremos si responde realizando un ping a la máquina víctima.
 
-![[Pasted image 20250106184951.png]]
+
+![image](https://github.com/user-attachments/assets/f9d8863f-f12d-435a-8c13-f4d34a19d759)
+
 
 Como tenemos respuesta de la máquina víctima, procederemos a realizar la fase de **`reconocimiento`** de puertos utilizando `nmap`.
 
-![[Pasted image 20250106184930.png]]
+
+![image](https://github.com/user-attachments/assets/7f2e0da8-4e3a-48a1-8d37-0c4e882df32d)
+
 
 Una vez realizado el reconocimiento de puertos, procederemos a identificar las versiones y servicios que se ejecutan en ellos, utilizando la herramienta **extractPorts** para facilitar el análisis.
 
-![[Pasted image 20250106185433.png]]
 
+![image](https://github.com/user-attachments/assets/7b48467c-a768-4e36-b65b-340a5792cb2a)
 
 
 Como solo tenemos abierto el puerto 80, esto indica la posible presencia de un servidor web. Procederemos a verificarlo para analizar su contenido.
-![[Pasted image 20250106185452.png]]
+
+
+![image](https://github.com/user-attachments/assets/ae91e5db-94a4-47be-8f62-826bb8fe733b)
+
 
 Al analizar la web, notamos un botón que, al hacer clic, muestra una alerta con el mensaje: **"A terrible error while establishing a connection with the database"**. Esto sugiere un posible problema de configuración o una vulnerabilidad relacionada con la conexión a la base de datos. 
- ![[Pasted image 20250106190536.png]]
 
+
+![image](https://github.com/user-attachments/assets/27bb0298-e31f-48ed-80b5-a0b2cb8e9607)
+
+ 
 Siguiendo con la fase de reconocimiento, procederemos a realizar el escaneo de directorios utilizando **Gobuster**.
 
 En los resultados de **Gobuster**, hemos identificado tres directorios. Procederemos a ingresar a cada uno de ellos para analizar las rutas y explorar su contenido.
 
-![[Pasted image 20250106192010.png]]
+
+![image](https://github.com/user-attachments/assets/e45c0ec2-a25a-4f54-afdb-e3533935d531)
+
 
 [ * ] Ruta http://192.168.1.100/wordpress/:
 
 En esta ruta, verificamos que no se carga nada, pero al observar la URL, notamos que está intentando cargar un dominio. Agregaremos este dominio al archivo **/etc/hosts** para que la web se cargue correctamente, habilitando así el **virtual hosting**.
 
-![[Pasted image 20250106192806.png]]
+
+![image](https://github.com/user-attachments/assets/2de34383-b8a9-4c99-a087-a2c05f4274aa)
+
 
 Agregando dominio a /etc/hosts
 
-![[Pasted image 20250106193048.png]]
+
+![image](https://github.com/user-attachments/assets/77f0a187-a7d9-4c0e-9243-3f71e3dd7a3c)
+
 
 Al recargar la página, ahora podemos acceder a la web correctamente.
 
 Una vez analizada la web, no se encontró nada potencialmente interesante o vulnerable en su contenido. Procederemos a realizar un reconocimiento de directorios en dicha ruta `http://escolares.dl/wordpress/` para explorar posibles recursos adicionales.
 
-![[Pasted image 20250106193209.png]]
+
+![image](https://github.com/user-attachments/assets/25474a2b-3575-47fc-851a-67ac08bbe19c)
 
 
 Al realizar el reconocimiento de directorios en la ruta, notamos una gran cantidad de directorios, de los cuales **wp-admin** nos llama la atención, ya que es un directorio clave en aplicaciones basadas en WordPress. En versiones antiguas de WordPress, este directorio permitía la enumeración de usuarios, lo que podría ser una posible vulnerabilidad a explotar.
 
-![[Pasted image 20250106194803.png]]
+
+![image](https://github.com/user-attachments/assets/543db182-1fbe-4d28-af5b-3ec1ca68d10d)
+
 
 Al probar con el usuario **admin** y cualquier contraseña, notamos que el mensaje de error indica que el usuario **admin** existe. Esto confirma que se trata de una vía potencial para la enumeración de usuarios, lo que podría ser aprovechado para identificar usuarios válidas en el sistema.
 
 
-![[Pasted image 20250106195312.png]]
+![image](https://github.com/user-attachments/assets/189b4e69-5e84-49b6-ab22-2fa7db742ed1)
+
 
 Con WPScan también podemos enumerar usuarios, buscar vulnerabilidades en la instalación de WordPress y en los plugins. Esto nos permitirá verificar si alguno de los plugins instalados presenta vulnerabilidades conocidas que puedan ser explotadas.
 
@@ -56,13 +78,21 @@ Con WPScan también podemos enumerar usuarios, buscar vulnerabilidades en la ins
 
 Tenemos **XMLRPC** habilitado, el cual fue sometido al respectivo análisis. Tras la revisión, no se detectaron vulnerabilidades, ya que **no se encontraron configuraciones inseguras ni fallos conocidos** que pudieran ser explotados en esta instalación específica.
 
-![[Pasted image 20250106200544.png]]
+
+![image](https://github.com/user-attachments/assets/6fcaf5cf-a1c3-4c2a-b907-aefe78189767)
+
 
 Si WPScan no está mostrando los plugins instalados en la web, es importante recordar que existen varios métodos de enumeración de plugins. Incluso el propio como **`nmap`** pueden utilizarse para detectar plugins.
 
-![[Pasted image 20250106201842.png]]
+
+![image](https://github.com/user-attachments/assets/3e28f288-4dde-488d-aa5b-a081a465a8da)
+
+
 WPSCAN nos enumero usarios validos en la web cual podemos aprovechar para poder descrubrir su contrase;a mediante la fuerza bruta
-![[Pasted image 20250106204502.png]]
+
+
+![image](https://github.com/user-attachments/assets/563603fc-b000-4e85-82bd-7fbec7774b50)
+
 
 # REFERENCIA Y APRENDIZAJE
 
@@ -78,7 +108,9 @@ Dado que **`nuclei`** realiza un fuzzing de plugins, el proceso tiende a demorar
 
 Durante el reconocimiento, se encontraron 2 plugins instalados, y Nuclei nos proporcionó la versión de dichos plugins, lo cual podemos aprovechar para intentar escalar privilegios.
 
-![[Pasted image 20250106203057.png]]
+
+![image](https://github.com/user-attachments/assets/671ea35d-7974-4168-b338-c38fddded236)
+
 
 ---
  
@@ -89,17 +121,22 @@ wpscan --url http://escolares.dl/wordpress/ -U admin -P /usr/share/wordlists/roc
 ```
 
 
-![[Pasted image 20250106210154.png]]
+![image](https://github.com/user-attachments/assets/30e6a481-b2d1-4074-8f86-56251586661f)
+
 
 ¡BINGO! Ahora que tenemos la contraseña del usuario admin, podemos autenticarnos en el panel de administración de WordPress.
 
 Al ingresar las credenciales, se muestra la siguiente ventana, en la cual haremos clic en "Recuérdamelo más tarde" 
 
-![[Pasted image 20250106210430.png]]
+
+![image](https://github.com/user-attachments/assets/d85b4c0a-4664-4ba4-abf5-6a2da7d324f4)
+
 
 ¡Y pa dentro! Ahora estamos en el panel de control de WordPress.
 
-![[Pasted image 20250106210652.png]]
+
+![image](https://github.com/user-attachments/assets/598a5aba-4111-4630-bf89-1d25a47bc2da)
+
 
 Ahora procederemos a ir al apartado de Plugins para comprobar si el sistema nos permite subir un plugin malicioso y así poder ganar acceso a la máquina víctima.
 
@@ -266,23 +303,30 @@ function printit ($string) {
 
 Procederemos a comprimir la revershell en un archivo zip para, posteriormente, subirlo a WordPress como un plugin más.
 
-![[Pasted image 20250107114444.png]]
 
-![[Pasted image 20250107114641.png]]
+![image](https://github.com/user-attachments/assets/16f9084f-19e0-447c-b390-5d7c579d72b2)
+
+
+![image](https://github.com/user-attachments/assets/1298ef07-a7a3-4573-8ad5-71f2e6000923)
+
 
 Nos ponemos en modo escucha en nuestra maquina atacante:
 
-![[Pasted image 20250107114714.png]]
+
+![image](https://github.com/user-attachments/assets/eee6692f-59f6-4a3f-845f-41d2b6cd83be)
+
+
 En la parte de plugins de WordPress encontraremos nuestro plugin subido, el cual, al activarlo, debemos obtener la reverse shell.
 
 
-![[Pasted image 20250107114754.png]]
+![image](https://github.com/user-attachments/assets/6068a102-1e31-4e7a-b6f1-03ea74cbba61)
 
 
 ¡BINGO! Ahora podemos analizar el sistema para poder elevar privilegios en la máquina víctima.
 
 
-![[Pasted image 20250107115032.png]]
+![image](https://github.com/user-attachments/assets/f52ef284-ce1b-4cee-9f91-9ba588ab789a)
+
 
 Sin antes realizar el tratamiento de la TTY.
 
@@ -305,23 +349,28 @@ alias ..='cd ..'
 
 Ya dentro de la máquina, vamos a listar los permisos SUID que tiene el sistema, los cuales nos ayudarán a elevar privilegios. En este caso, encontramos el binario **gawk**.
 
-![[Pasted image 20250107115937.png]]
+
+![image](https://github.com/user-attachments/assets/540d2b79-28bd-479f-af66-ce0b316d7b82)
+
 
 Al irnos a **GTFOBins** y filtrar por **gawk**, encontraremos que este binario se puede utilizar para ejecutar comandos con privilegios elevados, el cual ninguno de los metodos nos ayuda a elevar los privilegios.
 
-![[Pasted image 20250107120600.png]]
+
+![image](https://github.com/user-attachments/assets/15f9ad1d-66cb-4b4d-b66b-931b883958bc)
 
 
 Ya que **gawk** es SUID, probaremos modificar el archivo **/etc/passwd** haciendo una copia en el directorio **/tmp/**.
 
 Editaremos dicha copia y eliminaremos la "x" del usuario **root** para que, al autenticarnos como root, no se nos solicite una contraseña.
 
-![[Pasted image 20250107181916.png]]
 
-![[Pasted image 20250107182821.png]]
+![image](https://github.com/user-attachments/assets/ea79b091-52e3-41e7-89a3-d0d46dd455ef)
 
 
-![[Pasted image 20250107182832.png]]
+![image](https://github.com/user-attachments/assets/57a9c163-3dc3-4a13-ad29-c73395cc2a91)
+
+
+![image](https://github.com/user-attachments/assets/a20e4062-c179-4118-8dff-a4f6e8443333)
 
 
 Usando la ruta absoluta de **gawk**, sobrescribimos **/etc/passwd** con una copia modificada desde **/tmp/passwd**. Esto elimina la contraseña del usuario root, permitiendo acceso como superusuario sin restricciones.
@@ -335,6 +384,8 @@ www-data@e8e8d42acd23:/tmp$ /usr/bin/gawk 'BEGIN {
 
 ¡Y somos root!
 
-![[Pasted image 20250107182901.png]]
+
+![image](https://github.com/user-attachments/assets/8fafcdc5-5151-42e0-bc94-16067d7a3324)
+
 
  
